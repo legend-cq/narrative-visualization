@@ -1,8 +1,10 @@
 <html>
   <head>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
     <link type="text/css" rel="stylesheet" href="css/main.css" />
   </head>
   <body>
+    <h1>Systematic Inequality in US</h1>
     <div class="wrapper">
       <div class="tabs">
         <div class="tab">
@@ -13,26 +15,25 @@
             checked
             class="tab-switch"
           />
-          <label for="tab-1" class="tab-label">Tab One</label>
-          <div class="tab-content">
-            Chart 1
-          </div>
+          <label for="tab-1" class="tab-label">Income</label>
+          <div id="income-chart" class="tab-content"></div>
         </div>
         <div class="tab">
           <input type="radio" name="css-tabs" id="tab-2" class="tab-switch" />
-          <label for="tab-2" class="tab-label">Tab Two</label>
-          <div class="tab-content">
+          <label for="tab-2" class="tab-label">Education</label>
+          <div id="education-chart" class="tab-content">
             Chart 2
           </div>
         </div>
         <div class="tab">
           <input type="radio" name="css-tabs" id="tab-3" class="tab-switch" />
-          <label for="tab-3" class="tab-label">Tab Three</label>
-          <div class="tab-content">
+          <label for="tab-3" class="tab-label">Occupation</label>
+          <div id="occupation-chart" class="tab-content">
             Chart 3
           </div>
         </div>
       </div>
     </div>
   </body>
+  <script src="js/main.js"></script>
 </html>

@@ -4,11 +4,11 @@
 body {
   font-family: "Open Sans";
   background: #2c3e50;
-  color: #ecf0f1;
+  color: #e9ba21;
   line-height: 1.618em;
 }
 .wrapper {
-  max-width: 50rem;
+  max-width: 1024px;
   width: 100%;
   margin: 0 auto;
 }
@@ -50,7 +50,7 @@ body {
   transition: top 0.25s;
 }
 .tab-content {
-  height: 12rem;
+  height: 600px;
   position: absolute;
   z-index: 1;
   top: 2.75em;
@@ -61,6 +61,7 @@ body {
   border-bottom: 0.25rem solid #bdc3c7;
   opacity: 0;
   transition: all 0.35s;
+  width: 100%;
 }
 .tab-switch:checked + .tab-label {
   background: #fff;
@@ -75,4 +76,10 @@ body {
   z-index: 2;
   opacity: 1;
   transition: all 0.35s;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 3px;
 }
