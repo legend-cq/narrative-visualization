@@ -210,16 +210,16 @@ function createChart(edu) {
     var annotation =
       "Black people have the lowest median income from 1967 to 2018";
     if (edu == "bachelor") {
-      annotation = "Black and Hispanic people have the lowest median income";
+      annotation = "Black and Hispanic people have lowest income alternately";
     }
     svg
       .append("text")
       .attr(
         "transform",
         "translate(" +
-          x(data[30].year) +
+          x(data[35].year) +
           "," +
-          (y(data[30]["black-" + edu]) + 100) +
+          (y(data[35]["black-" + edu]) + 100) +
           ")"
       )
       .attr("dy", ".35em")
@@ -232,10 +232,10 @@ function createChart(edu) {
       .append("line")
       .style("stroke", "#e8336d")
       .style("stroke-width", "3px")
-      .attr("x1", x(data[35].year))
-      .attr("y1", y(data[35]["black-" + edu]) + 10)
-      .attr("x2", x(data[30].year) - 3)
-      .attr("y2", y(data[30]["black-" + edu]) + 95);
+      .attr("x1", x(data[40].year))
+      .attr("y1", y(data[40]["black-" + edu]) + 10)
+      .attr("x2", x(data[35].year) - 3)
+      .attr("y2", y(data[35]["black-" + edu]) + 95);
 
     svg
       .append("circle")
@@ -243,8 +243,8 @@ function createChart(edu) {
       .style("stroke-width", "1px")
       .style("stroke-dasharray", "5,3")
       .style("fill", "none")
-      .attr("cx", x(data[35].year))
-      .attr("cy", y(data[35]["black-" + edu]) + 10)
+      .attr("cx", x(data[40].year))
+      .attr("cy", y(data[40]["black-" + edu]) + 10)
       .attr("r", 10);
   });
 }
