@@ -9,6 +9,7 @@ body {
 }
 .wrapper {
   max-width: 1024px;
+  min-width: 1000px;
   width: 100%;
   margin: 0 auto;
 }
@@ -50,7 +51,7 @@ body {
   transition: top 0.25s;
 }
 .tab-content {
-  height: 600px;
+  height: 620px;
   position: absolute;
   z-index: 1;
   top: 2.75em;
@@ -82,4 +83,8 @@ body {
   fill: none;
   stroke: steelblue;
   stroke-width: 3px;
+}
+
+h2 {
+  color: rgb(140, 16, 223);
 }
