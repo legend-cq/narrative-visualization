@@ -4,7 +4,7 @@
     <link type="text/css" rel="stylesheet" href="css/main.css" />
   </head>
   <body>
-    <h1>Systematic Inequality in US</h1>
+    <h1>Systematic Inequality by Race</h1>
     <div class="wrapper">
       <div class="tabs">
         <div class="tab">
@@ -22,15 +22,18 @@
             </h2>
             <div>
               <h3>
-                From the chart below, Black people have the lowest income among
-                all races even with same education background. One exception is
-                for bachelor's degree. In that category, Black and Hispanic
-                people have the lowest income alternately.
+                From the chart below, blacks have the lowest income among all
+                races even with same education level. One exception is for
+                bachelor's degree. In that category, blacks and hispanics have
+                the lowest income alternately.
               </h3>
             </div>
-            <label>Select Education Background:</label>
-            <select id="edu-select" onchange="createChart(this.value)">
-              <option value="">All</option>
+            <label>Please Select Education Background:</label>
+            <select
+              id="edu-select"
+              onchange="createChart(this.value, 'income')"
+            >
+              <option value="total">All</option>
               <option value="high"
                 >High school graduate (includes equivalency)</option
               >
@@ -44,7 +47,25 @@
           <input type="radio" name="css-tabs" id="tab-2" class="tab-switch" />
           <label for="tab-2" class="tab-label">Education</label>
           <div id="education-chart" class="tab-content">
-            Chart 2
+            <h2>
+              Percent of People Who Have Completed College by Race and Hispanic
+              Origin(1967-2019)
+            </h2>
+            <div>
+              <h3>
+                From the chart below, hispanics have the lowest college
+                attainment rate and blacks have the second lowest rate.
+              </h3>
+            </div>
+            <label>Please Select Gender:</label>
+            <select
+              id="gender-select"
+              onchange="createChart(this.value, 'education')"
+            >
+              <option value="total">All</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
           </div>
         </div>
         <div class="tab">

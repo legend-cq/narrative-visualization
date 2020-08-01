@@ -7,10 +7,10 @@ var parseTime = d3.timeParse("%Y");
 var x = d3.scaleTime().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
 
-function createChart(edu) {
-  d3.select("#income-chart svg").remove();
+function createChart(edu, perspective) {
+  d3.select("#" + perspective + "-chart svg").remove();
   var svg = d3
-    .select("#income-chart")
+    .select("#" + perspective + "-chart")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -65,8 +65,10 @@ function createChart(edu) {
     .y(function (d) {
       return y(d["hispanic-" + edu]);
     });
-
-  d3.csv("data/household-income.csv").then(function (data) {
+  var file = "";
+  if (perspective == "income") file = "data/household-income.csv";
+  if (perspective == "education") file = "data/education.csv";
+  d3.csv(file).then(function (data) {
     data.forEach(function (d) {
       d.year = parseTime(d.year);
       d["all-" + edu] = +d["all-" + edu];
@@ -129,17 +131,29 @@ function createChart(edu) {
       .append("g")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x));
-
-    svg.append("g").call(d3.axisLeft(y));
-
+    var formatDollar = (d) => "$" + d;
+    var formatpercent = (d) => d + "%";
+    var tickFormat = formatDollar;
+    if (perspective == "education") tickFormat = formatpercent;
+    svg.append("g").call(d3.axisLeft(y).tickFormat(tickFormat));
+    var minAll, minWhite, minBlack, minAsian, minHispanic;
+    for (let i = 0; i < data.length; i++) {
+      let d = data[i];
+      if (!isNaN(d["all-" + edu]) && d["all-" + edu] > 0) minAll = i;
+      if (!isNaN(d["white-" + edu]) && d["white-" + edu] > 0) minWhite = i;
+      if (!isNaN(d["black-" + edu]) && d["black-" + edu] > 0) minBlack = i;
+      if (!isNaN(d["asian-" + edu]) && d["asian-" + edu] > 0) minAsian = i;
+      if (!isNaN(d["hispanic-" + edu]) && d["hispanic-" + edu] > 0)
+        minHispanic = i;
+    }
     svg
       .append("text")
       .attr(
         "transform",
         "translate(" +
-          (x(data[51].year) - 70) +
+          (x(data[minAll].year) - 70) +
           "," +
-          y(data[51]["all-" + edu]) +
+          y(data[minAll]["all-" + edu]) +
           ")"
       )
       .attr("dy", ".35em")
@@ -152,24 +166,24 @@ function createChart(edu) {
       .attr(
         "transform",
         "translate(" +
-          (x(data[46].year) - 130) +
+          (x(data[minWhite].year) - 40) +
           "," +
-          y(data[46]["white-" + edu]) +
+          (y(data[minWhite]["white-" + edu]) - 10) +
           ")"
       )
       .attr("dy", ".35em")
       .attr("text-anchor", "start")
       .style("fill", "#a93e3e")
-      .text("White, not Hispanic");
+      .text("White");
 
     svg
       .append("text")
       .attr(
         "transform",
         "translate(" +
-          (x(data[51].year) - 40) +
+          (x(data[minBlack].year) - 40) +
           "," +
-          (y(data[51]["black-" + edu]) + 10) +
+          (y(data[minBlack]["black-" + edu]) + 10) +
           ")"
       )
       .attr("dy", ".35em")
@@ -182,35 +196,42 @@ function createChart(edu) {
       .attr(
         "transform",
         "translate(" +
-          (x(data[31].year) - 40) +
+          (x(data[minAsian].year) - 40) +
           "," +
-          (y(data[31]["asian-" + edu]) + 10) +
+          (y(data[minAsian]["asian-" + edu]) + 10) +
           ")"
       )
       .attr("dy", ".35em")
       .attr("text-anchor", "start")
       .style("fill", "#ffbb78")
       .text("Asian");
-
+    var offset = -15;
+    if (edu == "female") offset = 15;
     svg
       .append("text")
       .attr(
         "transform",
         "translate(" +
-          (x(data[46].year) - 130) +
+          (x(data[minHispanic].year) - 50) +
           "," +
-          (y(data[46]["hispanic-" + edu]) + 10) +
+          (y(data[minHispanic]["hispanic-" + edu]) + offset) +
           ")"
       )
       .attr("dy", ".35em")
       .attr("text-anchor", "start")
       .style("fill", "#2ca02c")
-      .text("Hispanic(any race)");
+      .text("Hispanic");
 
-    var annotation =
-      "Black people have the lowest median income from 1967 to 2018";
+    var annotation = "Blacks have the lowest median income from 1967 to 2018";
     if (edu == "bachelor") {
-      annotation = "Black and Hispanic people have lowest income alternately";
+      annotation = "Blacks and Hispanics have the lowest income alternately";
+    }
+    if (perspective == "education") {
+      annotation = "Hispanics have the lowest college attainment rate";
+    }
+    if (edu == "male") {
+      annotation =
+        "Blacks and Hispanics have the lowest college attainment rate alternately";
     }
     svg
       .append("text")
@@ -219,7 +240,7 @@ function createChart(edu) {
         "translate(" +
           x(data[35].year) +
           "," +
-          (y(data[35]["black-" + edu]) + 100) +
+          (y(data[35]["black-" + edu]) + 50) +
           ")"
       )
       .attr("dy", ".35em")
@@ -235,17 +256,18 @@ function createChart(edu) {
       .attr("x1", x(data[40].year))
       .attr("y1", y(data[40]["black-" + edu]) + 10)
       .attr("x2", x(data[35].year) - 3)
-      .attr("y2", y(data[35]["black-" + edu]) + 95);
+      .attr("y2", y(data[35]["black-" + edu]) + 45);
 
     svg
       .append("circle")
       .style("stroke", "#e8336d")
-      .style("stroke-width", "1px")
-      .style("stroke-dasharray", "5,3")
-      .style("fill", "none")
+      .style("stroke-width", "5px")
+      // .style("stroke-dasharray", "5,3")
+      .style("fill", "yellow")
       .attr("cx", x(data[40].year))
       .attr("cy", y(data[40]["black-" + edu]) + 10)
       .attr("r", 10);
   });
 }
-createChart("");
+createChart("total", "income");
+createChart("total", "education");
