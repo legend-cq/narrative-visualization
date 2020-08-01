@@ -28,19 +28,21 @@
                 the lowest income alternately.
               </h3>
             </div>
-            <label>Please Select Education Background:</label>
-            <select
-              id="edu-select"
-              onchange="createChart(this.value, 'income')"
-            >
-              <option value="total">All</option>
-              <option value="high"
-                >High school graduate (includes equivalency)</option
+            <div>
+              <label>Please Select Education Level:</label>
+              <select
+                id="edu-select"
+                onchange="createChart(this.value, 'income')"
               >
-              <option value="college">Some college, no degree</option>
-              <option value="bachelor">Bachelor's degree</option>
-              <option value="master">Master's degree</option>
-            </select>
+                <option value="total">All</option>
+                <option value="high"
+                  >High school graduate (includes equivalency)</option
+                >
+                <option value="college">Some college, no degree</option>
+                <option value="bachelor">Bachelor's degree</option>
+                <option value="master">Master's degree</option>
+              </select>
+            </div>
           </div>
         </div>
         <div class="tab">
@@ -57,22 +59,35 @@
                 attainment rate and blacks have the second lowest rate.
               </h3>
             </div>
-            <label>Please Select Gender:</label>
-            <select
-              id="gender-select"
-              onchange="createChart(this.value, 'education')"
-            >
-              <option value="total">All</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
+            <div>
+              <label>Please Select Gender:</label>
+              <select
+                id="gender-select"
+                onchange="createChart(this.value, 'education')"
+              >
+                <option value="total">All</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
           </div>
         </div>
         <div class="tab">
           <input type="radio" name="css-tabs" id="tab-3" class="tab-switch" />
           <label for="tab-3" class="tab-label">Occupation</label>
           <div id="occupation-chart" class="tab-content">
-            Chart 3
+            <h2>
+              Shares of total employed people by occupation, race, and ethnicity
+              in 2010
+            </h2>
+            <div>
+              <h3>
+                Blacks and hispanics remain overrepresented in some of the
+                low-paying jobs like service workers and laborers but
+                underrepresented in some of the high-paying jobs like officials,
+                managers and professional workers.
+              </h3>
+            </div>
           </div>
         </div>
       </div>

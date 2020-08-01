@@ -1,13 +1,11 @@
-var margin = { top: 20, right: 20, bottom: 30, left: 50 },
-  width = 960 - margin.left - margin.right,
-  height = 500 - margin.top - margin.bottom;
-
 var parseTime = d3.timeParse("%Y");
 
-var x = d3.scaleTime().range([0, width]);
-var y = d3.scaleLinear().range([height, 0]);
-
 function createChart(edu, perspective) {
+  var margin = { top: 20, right: 20, bottom: 30, left: 50 },
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+  var x = d3.scaleTime().range([0, width]);
+  var y = d3.scaleLinear().range([height, 0]);
   d3.select("#" + perspective + "-chart svg").remove();
   var svg = d3
     .select("#" + perspective + "-chart")
@@ -91,7 +89,7 @@ function createChart(edu, perspective) {
           d["hispanic-" + edu]
         );
       }),
-    ]);
+    ]).nice();
     svg
       .append("path")
       .data([data])
@@ -271,3 +269,78 @@ function createChart(edu, perspective) {
 }
 createChart("total", "income");
 createChart("total", "education");
+
+function createBarChart(perspective) {
+  var margin = { top: 20, right: 20, bottom: 30, left: 150 },
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+  var svg = d3
+    .select("#" + perspective + "-chart")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  var y = d3.scaleBand().rangeRound([0, height]).paddingInner(0.05).align(0.1);
+
+  var x = d3.scaleLinear().rangeRound([0, width]);
+
+  var z = d3
+    .scaleOrdinal()
+    .range(["#ff7f0e", "#2ca02c", "#ffbb78", "#1f77b4", "#a93e3e"]);
+
+  d3.csv("data/occupation.csv").then(function (data) {
+    var keys = data.columns.slice(1);
+    y.domain(
+      data.map(function (d) {
+        return d.occupation;
+      })
+    );
+    x.domain([0, 100]).nice();
+    z.domain(keys);
+    svg
+      .append("g")
+      .selectAll("g")
+      .data(d3.stack().keys(keys)(data))
+      .enter()
+      .append("g")
+      .attr("fill", (d) => z(d.key))
+      .selectAll("rect")
+      .data((d) => d)
+      .enter()
+      .append("rect")
+      .attr("y", (d) => y(d.data.occupation))
+      .attr("x", (d) => x(d[0]))
+      .attr("width", (d) => x(d[1]) - x(d[0]))
+      .attr("height", y.bandwidth());
+    svg
+      .append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x).tickFormat((d) => d + "%"));
+    svg.append("g").call(d3.axisLeft(y));
+    var legend = svg
+      .append("g")
+      .attr("transfor", "translate(0,0)")
+      .selectAll("g")
+      .data(keys)
+      .enter()
+      .append("g")
+      .attr("transform", (d, i) => "translate(" + i * 100 + "," + "-20)");
+    legend
+      .append("rect")
+      .attr("x", 0)
+      .attr("width", 19)
+      .attr("height", 19)
+      .attr("fill", z);
+
+    legend
+      .append("text")
+      .attr("x", 20)
+      .attr("y", 9.5)
+      .attr("dy", "0.32em")
+      .text(function (d) {
+        return d;
+      });
+  });
+}
+createBarChart("occupation");
