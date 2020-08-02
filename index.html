@@ -5,89 +5,97 @@
   </head>
   <body>
     <h1>Systematic Inequality by Race</h1>
-    <div class="wrapper">
-      <div class="tabs">
-        <div class="tab">
-          <input
-            type="radio"
-            name="css-tabs"
-            id="tab-1"
-            checked
-            class="tab-switch"
-          />
-          <label for="tab-1" class="tab-label">Income</label>
-          <div id="income-chart" class="tab-content">
-            <h2>
-              Median Household Income by Race and Hispanic Origin: 1967 to 2018
-            </h2>
-            <div>
-              <h3>
-                From the chart below, blacks have the lowest income among all
-                races even with same education level. One exception is for
-                bachelor's degree. In that category, blacks and hispanics have
-                the lowest income alternately.
-              </h3>
-            </div>
-            <div>
-              <label>Please Select Education Level:</label>
-              <select
-                id="edu-select"
-                onchange="createChart(this.value, 'income')"
-              >
-                <option value="total">All</option>
-                <option value="high"
-                  >High school graduate (includes equivalency)</option
+    <div id="container">
+      <div class="summary">
+        This story examines how systematic inequality continues to
+        disproportionately segregate blacks and hispanics from access to
+        opportunity and getting quality education, jobs and income.
+      </div>
+      <div class="wrapper">
+        <div class="tabs">
+          <div class="tab">
+            <input
+              type="radio"
+              name="css-tabs"
+              id="tab-1"
+              checked
+              class="tab-switch"
+            />
+            <label for="tab-1" class="tab-label">Income</label>
+            <div id="income-chart" class="tab-content">
+              <h2>
+                Median Household Income by Race and Hispanic Origin: 1967 to
+                2018
+              </h2>
+              <div>
+                <h3>
+                  From the chart below, blacks have the lowest income among all
+                  races even with same education level. One exception is for
+                  bachelor's degree. In that category, blacks and hispanics have
+                  the lowest income alternately.
+                </h3>
+              </div>
+              <div>
+                <label>Please Select Education Level:</label>
+                <select
+                  id="edu-select"
+                  onchange="createChart(this.value, 'income')"
                 >
-                <option value="college">Some college, no degree</option>
-                <option value="bachelor">Bachelor's degree</option>
-                <option value="master">Master's degree</option>
-              </select>
+                  <option value="total">All</option>
+                  <option value="high"
+                    >High school graduate (includes equivalency)</option
+                  >
+                  <option value="college">Some college, no degree</option>
+                  <option value="bachelor">Bachelor's degree</option>
+                  <option value="master">Master's degree</option>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="tab">
-          <input type="radio" name="css-tabs" id="tab-2" class="tab-switch" />
-          <label for="tab-2" class="tab-label">Education</label>
-          <div id="education-chart" class="tab-content">
-            <h2>
-              Percent of People Who Have Completed College by Race and Hispanic
-              Origin(1967-2019)
-            </h2>
-            <div>
-              <h3>
-                From the chart below, hispanics have the lowest college
-                attainment rate and blacks have the second lowest rate.
-              </h3>
-            </div>
-            <div>
-              <label>Please Select Gender:</label>
-              <select
-                id="gender-select"
-                onchange="createChart(this.value, 'education')"
-              >
-                <option value="total">All</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
+          <div class="tab">
+            <input type="radio" name="css-tabs" id="tab-2" class="tab-switch" />
+            <label for="tab-2" class="tab-label">Education</label>
+            <div id="education-chart" class="tab-content">
+              <h2>
+                Percent of People Who Have Completed College by Race and
+                Hispanic Origin(1967-2019)
+              </h2>
+              <div>
+                <h3>
+                  From the chart below, hispanics have the lowest college
+                  attainment rate and blacks have the second lowest rate.
+                </h3>
+              </div>
+              <div>
+                <label>Please Select Gender:</label>
+                <select
+                  id="gender-select"
+                  onchange="createChart(this.value, 'education')"
+                >
+                  <option value="total">All</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="tab">
-          <input type="radio" name="css-tabs" id="tab-3" class="tab-switch" />
-          <label for="tab-3" class="tab-label">Occupation</label>
-          <div id="occupation-chart" class="tab-content">
-            <h2>
-              Shares of total employed people by occupation, race, and ethnicity
-              in 2010
-            </h2>
-            <div>
-              <h3>
-                Blacks and hispanics remain overrepresented in some of the
-                low-paying jobs like service workers and laborers but
-                underrepresented in some of the high-paying jobs like officials,
-                managers and professional workers.
-              </h3>
-              <label>Hover over the bar chart to see more details</label>
+          <div class="tab">
+            <input type="radio" name="css-tabs" id="tab-3" class="tab-switch" />
+            <label for="tab-3" class="tab-label">Occupation</label>
+            <div id="occupation-chart" class="tab-content">
+              <h2>
+                Shares of total employed people by occupation, race, and
+                ethnicity in 2010
+              </h2>
+              <div>
+                <h3>
+                  Blacks and hispanics remain overrepresented in some of the
+                  low-paying jobs like service workers and laborers but
+                  underrepresented in some of the high-paying jobs like
+                  officials, managers and professional workers.
+                </h3>
+                <label>Hover over the bar chart to see more details</label>
+              </div>
             </div>
           </div>
         </div>
