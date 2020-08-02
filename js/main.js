@@ -289,6 +289,12 @@ function createBarChart(perspective) {
     .scaleOrdinal()
     .range(["#ff7f0e", "#2ca02c", "#ffbb78", "#1f77b4", "#a93e3e"]);
 
+  var div = d3
+    .select("body")
+    .append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
   d3.csv("data/occupation.csv").then(function (data) {
     var keys = data.columns.slice(1);
     y.domain(
@@ -312,7 +318,35 @@ function createBarChart(perspective) {
       .attr("y", (d) => y(d.data.occupation))
       .attr("x", (d) => x(d[0]))
       .attr("width", (d) => x(d[1]) - x(d[0]))
-      .attr("height", y.bandwidth());
+      .attr("height", y.bandwidth())
+      .on("mouseover", function (d) {
+        div.transition().duration(200).style("opacity", 0.9);
+        div
+          .html(
+            d.data.occupation +
+              "<br/>" +
+              "Black:" +
+              d.data.black +
+              "%<br/>" +
+              "Hispanic:" +
+              d.data.hispanic +
+              "%<br/>" +
+              "Asian:" +
+              d.data.asian +
+              "%<br/>" +
+              "White:" +
+              d.data.white +
+              "%<br/>" +
+              "Others:" +
+              d.data.others +
+              "%<br/>"
+          )
+          .style("left", d3.event.pageX + "px")
+          .style("top", d3.event.pageY + "px");
+      })
+      .on("mouseout", function (d) {
+        div.transition().duration(500).style("opacity", 0);
+      });
     svg
       .append("g")
       .attr("transform", "translate(0," + height + ")")
@@ -332,7 +366,6 @@ function createBarChart(perspective) {
       .attr("width", 19)
       .attr("height", 19)
       .attr("fill", z);
-
     legend
       .append("text")
       .attr("x", 20)

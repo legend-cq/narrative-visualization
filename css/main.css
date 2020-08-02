@@ -92,3 +92,18 @@ div.paragraph {
   display: flex;
   width: 20%;
 }
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 170px;
+  height: 90px;
+  padding: 2px;
+  font: 12px sans-serif;
+  color: white;
+  background: black;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 100;
+}
